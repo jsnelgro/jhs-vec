@@ -1,4 +1,4 @@
-import * as veclib from './vector3d.js'
+import * as veclib from './vector.js'
 
 describe('Vector class', () => {
   const { Vec } = veclib
