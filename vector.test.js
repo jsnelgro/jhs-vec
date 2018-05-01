@@ -254,4 +254,15 @@ describe('static vector methods', () => {
       expect(() => sub(1, v)).toThrow()
     })
   })
+
+  describe ('sum', () => {
+    const { sum } = veclib
+
+    test('if one vector is passed in, returns the sum of its dimensions', () => {
+      let v = [1,2]
+      let result = sum(v)
+      let expected = 3
+      expect(result).toEqual(expected)
+    })
+  })
 })
