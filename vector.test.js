@@ -255,14 +255,39 @@ describe('static vector methods', () => {
     })
   })
 
-  describe ('sum', () => {
+  describe('sum', () => {
     const { sum } = veclib
 
     test('if one vector is passed in, returns the sum of its dimensions', () => {
-      let v = [1,2]
+      let v = [1, 2]
       let result = sum(v)
       let expected = 3
       expect(result).toEqual(expected)
+    })
+  })
+
+  describe('clamp', () => {
+    const { clamp, create, Vec } = veclib
+
+    test('should always return a vector', () => {
+      expect(clamp([1, 2])).toBeInstanceOf(Vec)
+      expect(clamp(create([1, 2]))).toBeInstanceOf(Vec)
+    })
+
+    test('if only one arg is passed in, should clamp all dimensions to -1, 1', () => {
+      expect(clamp([-10]).toArray()).toEqual([-1])
+      expect(clamp([-10, 10]).toArray()).toEqual([-1, 1])
+      expect(clamp([-10, 10, 10]).toArray()).toEqual([-1, 1, 1])
+    })
+
+    test('if n arguments are passed in, the ith dimension of the first arg should be clamped to the range of the ith+1 argument vector', () => {
+      expect(clamp([-10], [-11, 1]).toArray()).toEqual([-10])
+      expect(clamp([-10, 10], [-2, 3], [0, 9]).toArray()).toEqual([-2, 9])
+      expect(clamp([-10, 10, 10]).toArray()).toEqual([-1, 1, 1])
+    })
+
+    test('if args.length - 1 is less than arg[0].length, unmatched dimensions will be clamped to the last range vector', () => {
+      expect(clamp([-3, 3], [-2, 2]).toArray()).toEqual([-2, 2])
     })
   })
 })

@@ -151,6 +151,18 @@ export const centroid = (...vecs) => {
   return div(add(...vecs), vecs.length)
 }
 
+const _clamp = (val, lo, hi) => (val < lo ? lo : val > hi ? hi : val)
+export const clamp = (vec, ...ranges) => {
+  ranges = ranges.length === 0 ? [[-1, 1]] : ranges
+  return create(vec).map((d, i) => {
+    if (ranges[i]) {
+      return _clamp(d, ...ranges[i])
+    } else {
+      return _clamp(d, ...ranges[ranges.length - 1])
+    }
+  })
+}
+
 const zip = (...rows) => [...rows[0]].map((_, c) => rows.map((row) => row[c]))
 export const distance = (vec1, vec2) => {
   return Math.sqrt(
