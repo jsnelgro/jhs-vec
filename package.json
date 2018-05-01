@@ -3,9 +3,10 @@
   "name": "jhs-vec",
   "version": "0.0.1",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "npm run test:w",
     "test": "jest",
-    "test:w": "jest --watchAll"
+    "test:w": "jest --watchAll",
+    "build": "parcel build vector.js -o vector.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
